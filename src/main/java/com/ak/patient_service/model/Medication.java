@@ -1,10 +1,8 @@
 package com.ak.patient_service.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,14 +12,14 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Data
 @Entity
+@Table(name = "medications")
+@Builder
 public class Medication {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long patient_id;
-    private Long doctor_id;
-    private String dose;
-    private Integer frequency;
-    private Timestamp startDate;
-    private Timestamp endDate;
+    private String name;
+    private String dosage;
+    private String duration;
+    private String instructions;
 }

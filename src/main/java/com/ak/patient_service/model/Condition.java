@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -13,29 +14,25 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "allergies")
+@Table(name = "conditions")
 @Builder
-public class Allergy {
+public class Condition {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long patientId;
-
-    private String substanceCode;
-    private String substanceName;
+    private String name;
 
     @Enumerated(EnumType.STRING)
-    private Severity severity;
+    private ClinicalStatus clinicalStatus;
 
-    private String reaction;
-    private String source;
-    private Long verifiedByDoctorId;
-
-    private Boolean isActive;
-
+    private Date onsetDate;
     private Timestamp recordedAt;
     private Timestamp updatedAt;
+
+    @Enumerated(EnumType.STRING)
+    private Source source;
 
     @PrePersist
     public void prePersist(){

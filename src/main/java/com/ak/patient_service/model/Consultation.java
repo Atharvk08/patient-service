@@ -1,9 +1,6 @@
 package com.ak.patient_service.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,18 +12,24 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
+@Table(name = "consultations")
 public class Consultation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long patient_id;
-    private Long doctor_id;
-    private String notes;
-    private Long hospital_id;
-    private Long consent_id;
 
-    private List<Medication> medications;
+    private Long patientId;
+    private Long doctorId;
+    private Long hospitalId;
+    private Long consentId;
+
+    @Column(columnDefinition = "TEXT")
+    private String notes;
     private Timestamp visitedOn;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "consultation_id")
+    private List<Medication> medications;
 
     // todo future scope -> follow ups
 }
